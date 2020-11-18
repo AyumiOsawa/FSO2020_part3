@@ -1,0 +1,19 @@
+{
+  "name": "phonebook_backend",
+  "version": "1.0.0",
+  "description": "FSO2020 part3 exercises",
+  "main": "index.js",
+  "repository": "https://github.com/AyumiOsawa/FSO2020_part3.git",
+  "author": "AyumiOsawa <a.osawa1002@gmail.com>",
+  "license": "MIT",
+  "scripts" : {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
