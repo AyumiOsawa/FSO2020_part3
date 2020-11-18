@@ -32,6 +32,25 @@ app.get('/api/persons', (request, response) => {
 app.get('/info', (request, response) => {
   const num = persons.length;
   const num_text = `<div>Phonebook has info for ${num} people<div><br>`;
+  const [
+    day,
+    date,
+    month,
+    fullYear,
+    h,
+    m,
+    s,
+    timeDiff
+  ] = _getFullDate();
+  const date_text = `<div>${day} ${month} ${date} ${fullYear}
+    ${h}:${m}:${s} GMT${timeDiff > 0 ? '+' : ''}${timeDiff} (Eastern European
+    Standard Time)</div>`;
+  const text = num_text + date_text;
+
+  response.send(text);
+});
+
+const _getFullDate = () => {
   const timestamp = new Date();
   const days = [
     "Sun",
@@ -64,13 +83,19 @@ app.get('/info', (request, response) => {
   const m = timestamp.getMinutes();
   const s = timestamp.getSeconds();
   const timeDiff = timestamp.getTimezoneOffset()*-1/60;
-  const date_text = `<div>${day} ${month} ${date} ${fullYear}
-    ${h}:${m}:${s} GMT${timeDiff > 0 ? '+' : ''}${timeDiff} (Eastern European 
-    Standard Time)</div>`;
-  const text = num_text + date_text;
+  return [
+    day,
+    date,
+    month,
+    fullYear,
+    h,
+    m,
+    s,
+    timeDiff
+  ];
+}
 
-  response.send(text);
-})
+
 
 const PORT = 3001;
 app.listen(PORT, () => {
