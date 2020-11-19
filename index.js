@@ -4,7 +4,19 @@ const morgan = require('morgan');
 const app = express();
 
 app.use(express.json());
-app.use(morgan('dev'));
+const format = `
+    :method
+    :url
+    :status
+    :res[content-length] -
+    :response-time ms
+    :content
+    `;
+
+morgan.token('content', (request) => {
+  return JSON.stringify(request.body);
+})
+app.use(morgan(format));
 
 let persons = [
   {
