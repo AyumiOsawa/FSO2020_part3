@@ -6,12 +6,13 @@
   "repository": "https://github.com/AyumiOsawa/FSO2020_part3.git",
   "author": "AyumiOsawa <a.osawa1002@gmail.com>",
   "license": "MIT",
-  "scripts" : {
+  "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
