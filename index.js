@@ -1,9 +1,12 @@
 'use strict';
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
 app.use(express.json());
+app.use(cors());
+
 const format = `
     :method
     :url
@@ -167,7 +170,8 @@ const _generateId = () => {
   return maxId + 1;
 }
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+app.set("port", PORT);
 app.listen(PORT, () => {
   console.log(`Web server is running on port ${PORT}`);
 })
