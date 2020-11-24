@@ -25,29 +25,6 @@ morgan.token('content', (request) => {
 })
 app.use(morgan(format));
 
-// let persons = [
-//   {
-//     "name": "Arto Hellas",
-//     "number": "040-123456",
-//     "id": 1
-//   },
-//   {
-//     "name": "Ada Lovelace",
-//     "number": "39-44-5323523",
-//     "id": 2
-//   },
-//   {
-//     "name": "Dan Abramov",
-//     "number": "12-43-234345",
-//     "id": 3
-//   },
-//   {
-//     "name": "Mary Poppendieck",
-//     "number": "39-23-6423122",
-//     "id": 41
-//   }
-// ];
-
 app.get('/api/persons', (request, response) => {
   Contact.find({}).then(contacts => {
     response.json(contacts);
@@ -151,30 +128,15 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  const names = persons.map(p => p.name);
-  if( names.includes(body.name) ) {
-    return response.status(400).json({
-      error: 'name must be unique'
-    })
-  }
-
-  const newPerson = {
+  const newPerson = new Contact({
     name: body.name,
     number: body.number,
-    id: _generateId(),
-  }
+  });
 
-  persons = persons.concat(newPerson);
-  response.json(newPerson);
+  newPerson.save().then(savedContact => {
+    response.json(newPerson);
+  });
 })
-
-const _generateId = () => {
-  const maxId = persons.length > 0
-  ? Math.max(...persons.map(p => p.id))
-  : 0
-
-  return maxId + 1;
-}
 
 const PORT = process.env.PORT;
 app.set("port", PORT);
